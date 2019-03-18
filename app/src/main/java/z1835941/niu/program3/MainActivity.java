@@ -14,8 +14,19 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/*************************
+ * Justin Dupre and Brady Goldsworthy
+ * z1835941         z1816747
+ *
+ * CSCI 322 Assignment 3
+ * Using Intents and Widgets
+ * Due 3/20/19
+ *
+ *************************/
+
 public class MainActivity extends AppCompatActivity {
 
+    //create class variables
     private Spinner listSpin;
     private String selectedNoodle;
     ImageView noodleIV;
@@ -29,12 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
         //spinner from object
         List<String> listValues = new ArrayList<>();
-
+        //add all noodle types to list
         listValues.add("ramen");
         listValues.add("udon");
         listValues.add("spaghetti");
         listValues.add("rice_noodles");
         listValues.add("hiyamugi");
+        //connect our spinner to variable
         listSpin = findViewById(R.id.listSpinner);
 
         ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_view, listValues);
@@ -46,7 +58,10 @@ public class MainActivity extends AppCompatActivity {
     AdapterView.OnItemSelectedListener spinnerListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            //set variable to which noodle was selected
             selectedNoodle = parent.getItemAtPosition(position).toString();
+
+            //set the image depending on which noodle is selected
             if (selectedNoodle == "ramen"){
                 noodleIV.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ramen, null));
             } else if (selectedNoodle == "udon") {
@@ -69,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
     };
 
     public void goToNoodle(View v){
+
+        //create an id corresponding to each noodle
         int id = 1;
         if (selectedNoodle == "ramen") {
             id = 1;
@@ -81,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (selectedNoodle == "hiyamugi") {
             id = 5;
         }
+
+        //create intent and send noodle type and id
         Intent noodleIntent = new Intent(MainActivity.this, InfoActivity.class);
         noodleIntent.putExtra("noodleType", selectedNoodle);
         noodleIntent.putExtra("id", id);
